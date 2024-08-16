@@ -1,0 +1,242 @@
+openapi: "3.1.0"
+info:
+  title: partyon POS API
+  version: "1.0"
+  description: |-
+    This API is used for partyon POS system.
+servers:
+  - url: HTTPS
+tags:
+  - name: default
+paths:
+  /default:
+    get:
+      tags:
+        - default
+      responses:
+        "200":
+          description: OK
+    put:
+      tags:
+        - default
+      description: ""
+      parameters: []
+      responses:
+        "200":
+          description: OK
+    delete:
+      tags:
+        - default
+      description: ""
+      parameters: []
+      responses:
+        "200":
+          description: OK
+    post:
+      tags:
+        - default
+      description: ""
+      parameters: []
+      responses:
+        "200":
+          description: OK
+  /customer:
+    post:
+      tags:
+        - default
+      description: ""
+      parameters: []
+      responses:
+        "200":
+          description: OK
+  /seats:
+    get:
+      tags:
+        - default
+      description: "Get multiple seat information."
+      parameters: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                  properties:
+                    table_name:
+                      type: "string"
+                    is_occupied:
+                      type: "boolean"
+                    subtotal:
+                      type: "integer"
+                    male_count:
+                      type: "integer"
+                    female_count:
+                      type: "integer"
+                  example:
+                    table_name: "string"
+                    is_occupied: true
+                    subtotal: 0
+                    male_count: 0
+                    female_count: 0
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+  /seats/{seatId}:
+    get:
+      tags:
+        - default
+      description: "Get a single seat information."
+      parameters:
+        - name: "seatId"
+          in: "path"
+          description: "取得したい座席のID"
+          required: true
+          type: "integer"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  table_name:
+                    type: "string"
+                  is_occupied:
+                    type: "boolean"
+                  subtotal:
+                    type: "integer"
+                  male_count:
+                    type: "integer"
+                  female_count:
+                    type: "integer"
+                example:
+                  table_name: "string"
+                  is_occupied: true
+                  subtotal: 0
+                  male_count: 0
+                  female_count: 0
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+  /orders:
+    get:
+      tags:
+        - default
+      description: "Get multiple order information."
+      parameters: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                  properties:
+                    ordered_at:
+                      type: "string"
+                    menu:
+                      type: "string"
+                    menu_category:
+                      type: "string"
+                    price:
+                      type: "integer"
+                    order_quantity:
+                      type: "integer"
+                    served_quantity:
+                      type: "integer"
+                    subtotal:
+                      type: "integer"
+                    group_id:
+                      type: "integer"
+                    table_list:
+                      type: array
+                    registered_by:
+                      type: "string"
+                    for_whom:
+                      type: "string"
+                  example:
+                    ordered_at: "string"
+                    menu: "string"
+                    menu_category: "string"
+                    price: 0
+                    order_quantity: 0
+                    served_quantity: 0
+                    subtotal: 0
+                    group_id: 0
+                    table_list: []
+                    registered_by: "string"
+                    for_whom: "string"
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+  /orders/{orderId}:
+    get:
+      tags:
+        - default
+      summary: Get a order record.
+      description: "Get a single order information."
+      parameters:
+        - name: "orderId"
+          in: "path"
+          description: "取得したい注文のID"
+          required: true
+          type: "integer"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  ordered_at:
+                    type: "string"
+                  menu:
+                    type: "string"
+                  menu_category:
+                    type: "string"
+                  price:
+                    type: "integer"
+                  order_quantity:
+                    type: "integer"
+                  served_quantity:
+                    type: "integer"
+                  subtotal:
+                    type: "integer"
+                  group_id:
+                    type: "integer"
+                  table_list:
+                    type: array
+                  registered_by:
+                    type: "string"
+                  for_whom:
+                    type: "string"
+                example:
+                  ordered_at: "string"
+                  menu: "string"
+                  menu_category: "string"
+                  price: 0
+                  order_quantity: 0
+                  served_quantity: 0
+                  subtotal: 0
+                  group_id: 0
+                  table_list: []
+                  registered_by: "string"
+                  for_whom: "string"
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
