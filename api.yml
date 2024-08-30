@@ -1,4 +1,4 @@
-openapi: "3.1.0"
+openapi: "3.0.3"
 info:
   title: partyon POS API
   version: "1.0"
@@ -9,46 +9,313 @@ servers:
 tags:
   - name: default
 paths:
-  /default:
+  /users:
     get:
       tags:
         - default
-      responses:
-        "200":
-          description: OK
-    put:
-      tags:
-        - default
-      description: ""
+      summary: Get users list.
+      description: "Allow you to get users list."
       parameters: []
       responses:
         "200":
           description: OK
-    delete:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    role:
+                      type: string
+                    password:
+                      type: string
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+  /users/{userId}:
+    get:
       tags:
         - default
-      description: ""
+      summary: Get a user record.
+      description: "Allow you to get a user record specified by userId."
+      parameters:
+        - name: userId
+          in: path
+          description: "This parameter enables you to specify a user by userId. eventId is 'id' in response of 'GET /users'"
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  role:
+                    type: string
+                  password:
+                    type: string
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+  /menus:
+    get:
+      tags:
+        - default
+      summary: Get menus list.
+      description: "Allow you to get menus list."
       parameters: []
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    value:
+                      type: string
+                    menu_category:
+                      type: string
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+  /menus/{menuId}:
+    get:
+      tags:
+        - default
+      summary: Get a menu record.
+      description: "Allow you to get a menu record specified by menuId."
+      parameters:
+        - name: menuId
+          in: path
+          description: "This parameter enables you to specify a menu by menuId. eventId is 'id' in response of 'GET /menus'"
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  value:
+                    type: string
+                  menu_category:
+                    type: string
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+  /customers:
+    get:
+      tags:
+        - default
+      summary: Get customers list.
+      description: "Allow you to get customers list."
+      parameters: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                  properties:
+                    id:
+                      type: integer
+                    customer_name:
+                      type: string
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+  /customers/{customerId}:
+    get:
+      tags:
+        - default
+      summary: Get a customer record.
+      description: "Allow you to get a customer record specified by customerId."
+      parameters:
+        - name: customerId
+          in: path
+          description: "This parameter enables you to specify a customer by customerId. eventId is 'id' in response of 'GET /customers'"
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  id:
+                    type: integer
+                  customer_name:
+                    type: string
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+  /groups:
+    get:
+      tags:
+        - default
+      summary: Get groups list.
+      description: "Allow you to get groups list."
+      parameters: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                  properties:
+                    id:
+                      type: integer
+                    ordered_by:
+                      type: string
+                    reserved_by:
+                      type: string
+                    point_to:
+                      type: string
+                    male_count:
+                      type: integer
+                    female_count:
+                      type: integer
+                    table_list:
+                      type: array
+                      items:
+                        type: string
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
     post:
       tags:
         - default
+      summary: Create a group.
       description: ""
-      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ordered_by:
+                  type: string
+                reserved_by:
+                  type: string
+                point_to:
+                  type: string
+                male_count:
+                  type: integer
+                female_count:
+                  type: integer
+                table_list:
+                  type: array
+                  items:
+                    type: string
       responses:
         "200":
           description: OK
-  /customer:
-    post:
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+  /groups/{groupId}:
+    get:
       tags:
         - default
-      description: ""
-      parameters: []
+      summary: Get a group record.
+      description: "Allow you to get the group information specified by groupId."
+      parameters:
+        - name: groupId
+          in: path
+          description: "This parameter enables you to specify a group by groupId. eventId is 'id' in response of 'GET /groups'"
+          required: true
+          schema:
+            type: integer
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  id:
+                    type: integer
+                  ordered_by:
+                    type: string
+                  reserved_by:
+                    type: string
+                  point_to:
+                    type: string
+                  male_count:
+                    type: integer
+                  female_count:
+                    type: integer
+                  table_list:
+                    type: array
+                    items:
+                      type: string
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
   /seats:
     get:
       tags:
@@ -93,11 +360,12 @@ paths:
         - default
       description: "Get a single seat information."
       parameters:
-        - name: "seatId"
-          in: "path"
+        - name: seatId
+          in: path
           description: "取得したい座席のID"
           required: true
-          type: "integer"
+          schema:
+            type: integer
       responses:
         "200":
           description: OK
@@ -189,11 +457,12 @@ paths:
       summary: Get a order record.
       description: "Get a single order information."
       parameters:
-        - name: "orderId"
-          in: "path"
+        - name: orderId
+          in: path
           description: "取得したい注文のID"
           required: true
-          type: "integer"
+          schema:
+            type: integer
       responses:
         "200":
           description: OK
