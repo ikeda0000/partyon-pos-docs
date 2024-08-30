@@ -263,10 +263,45 @@ paths:
                 table_list:
                   type: array
                   items:
-                    type: string
+                    type: object
+                    properties:
+                      value:
+                        type: string
+                      label:
+                        type: string
       responses:
-        "200":
+        "201":
           description: OK
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "顧客の登録に成功しました。"
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      ordered_by:
+                        type: string
+                      reserved_by:
+                        type: string
+                      point_to:
+                        type: string
+                      male_count:
+                        type: integer
+                      female_count:
+                        type: integer
+                      table_list:
+                        type: array
+                        items:
+                          type: string
         "400":
           description: Bad Request
         "401":
